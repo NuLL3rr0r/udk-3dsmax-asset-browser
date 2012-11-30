@@ -1,0 +1,58 @@
+﻿<Window x:Class="AssetBrowser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="600" Width="825" Loaded="MainWindow_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBox Name="searchTextBox" HorizontalAlignment="Stretch" Margin="16,4,16,4" VerticalAlignment="Stretch" TextChanged="searchTextBox_TextChanged" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <ListView Grid.Column="0" Name="typeListView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="16,16,16,16"  />
+            <ListView Grid.Column="1" Name="classListView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="16,16,16,16"  />
+            <ListView Grid.Column="2" Name="categoryListView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="16,16,16,16"  />
+            <ListView Grid.Column="3" Name="styleListView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="16,16,16,16"  />
+            <ListView Grid.Column="4" Name="sceneListView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="16,16,16,16"  />
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <ListView Grid.Column="0" Name="assetsListView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="16,16,16,16" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+            <ListView Grid.Column="1" Name="sidePaneListView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="16,16,16,16" />
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Column="1" Height="23" Name="iconSizeComboBox"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="16,0,16,0" SelectionChanged="iconSizeComboBox_SelectionChanged">
+                <ComboBoxItem ClipToBounds="True" Content="64x64" Tag="64" />
+                <ComboBoxItem Content="96x96" Tag="96" />
+                <ComboBoxItem Content="128x128" Tag="128" />
+                <ComboBoxItem Content="192x192" Tag="192" />
+                <ComboBoxItem Content="256x256" Tag="256" />
+                <ComboBoxItem ClipToBounds="False" Content="512x512" Tag="512" />
+            </ComboBox>
+        </Grid>
+    </Grid>
+</Window>

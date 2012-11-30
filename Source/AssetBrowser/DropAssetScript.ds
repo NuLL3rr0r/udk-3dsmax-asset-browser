@@ -1,0 +1,60 @@
+macroScript ObsceneDropAsset
+(
+	on droppable window node: point: return window == #viewport --and node == undefined
+	on drop window node: point: do 
+	(
+		local databaseExists = false
+		try
+		(
+			local theDatabase = ObScene.AssetDatabase()
+			databaseExists = theDatabase != undefined			
+		)		
+		catch
+		(
+		)
+		
+		if not databaseExists then
+		(
+			Messagebox "No asset database specified.  Make sure ObScene is running."
+			return false
+		)
+		
+		local assetName = @"{ASSETFILEPATH}"
+		local theAsset = theDatabase.GetAssetByName( assetName )
+		
+		if theAsset == undefined then
+		(
+			local errorMessage = "The asset \"" + assetName + "\" + could not be found."
+			Messagebox "errorMessage"
+			return false
+		)
+		
+		local sourcePathRel = (theAsset.GetProperty( "SourcePath" )).Value
+		local absolutePath = ObScene.ResolveSourceAssetPath sourcePathRel
+		
+		with redraw off
+		(
+			local addedObjects = #()
+			local assetAdded = ObScene.AddAsset absolutePath &addedObjects
+			
+			local baseXRef = addedObjects[1]
+			local ray = mapScreenToWorldRay point 
+			local hits = intersectRayScene ray
+			
+			if hits.count > 0 then 
+			(
+				local hitInfo = hits[1][2]
+				local intersectionPoint = hitInfo.position
+				
+				local rotTM = matrixFromNormal hitInfo.dir
+				baseXRef.transform = rotTM 
+				baseXRef.position = intersectionPoint
+			)
+			else
+			(
+				placementPoint = gw.getPointOnCP point
+				baseXRef.position = placementPoint 
+			)			
+		)
+	) 
+)
